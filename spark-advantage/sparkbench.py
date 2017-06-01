@@ -6,10 +6,13 @@
 import pandas as pd
 from sys import argv
 import time
+import os.environ as environ
 
 logfile = argv[1]
 filesize = argv[2]
 
+AWSKEY = environ['AWSKEY']
+AWSSECRET = environ["AWSSECRET"]
 
 from pyspark import SparkConf, SparkContext, sql
 from pyspark.sql import SQLContext
@@ -34,7 +37,7 @@ spark = sql.SparkSession(sc)
 # In[16]:
 
 localprefix = "file:////Users/tony/Dropbox/Projects/UW/cse599c-17sp-projects/spark-advantage/data/"
-s3prefix = "s3n://AKIAINKOQJAZEEJUID2A:njJVnsdYym7t0oRwPshgHv8VjUOr30ago8x1CxXD@sparkclim/"
+s3prefix = "s3n://"+AWSKEY+":"+AWSSECRET+"@sparkclim/"
 
 if (sc.master.startswith('local')):
     prefix = localprefix
