@@ -1,0 +1,54 @@
++---------------------------------------------------------------------------------------------------------------+---------+----------+---------+
+| Log                                                                                                           | Mem (%) | RSS (GB) | VM (GB) |
++---------------------------------------------------------------------------------------------------------------+---------+----------+---------+
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_10.profile.ps.log | 5.6     | 0.8305   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_11.profile.ps.log | 6.1     | 0.9091   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_12.profile.ps.log | 6.1     | 0.9008   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_13.profile.ps.log | 5.7     | 0.8431   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_14.profile.ps.log | 6.3     | 0.9283   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_15.profile.ps.log | 6.1     | 0.9106   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_16.profile.ps.log | 6.0     | 0.8860   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_17.profile.ps.log | 6.3     | 0.9264   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_18.profile.ps.log | 5.7     | 0.8472   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_19.profile.ps.log | 6.1     | 0.9044   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_1.profile.ps.log  | 6.3     | 0.9371   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_20.profile.ps.log | 6.2     | 0.9170   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_21.profile.ps.log | 6.1     | 0.8986   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_22.profile.ps.log | 6.1     | 0.9091   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_23.profile.ps.log | 6.0     | 0.8865   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_24.profile.ps.log | 6.3     | 0.9320   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_25.profile.ps.log | 6.2     | 0.9217   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_26.profile.ps.log | 5.9     | 0.8763   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_27.profile.ps.log | 6.2     | 0.9155   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_28.profile.ps.log | 6.0     | 0.8914   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_29.profile.ps.log | 6.0     | 0.8916   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_2.profile.ps.log  | 6.0     | 0.8890   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_30.profile.ps.log | 6.1     | 0.9077   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_31.profile.ps.log | 5.6     | 0.8273   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_32.profile.ps.log | 5.8     | 0.8555   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_33.profile.ps.log | 6.2     | 0.9185   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_34.profile.ps.log | 6.1     | 0.9058   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_35.profile.ps.log | 6.4     | 0.9463   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_36.profile.ps.log | 6.2     | 0.9125   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_37.profile.ps.log | 6.1     | 0.9069   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_38.profile.ps.log | 6.0     | 0.8960   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_39.profile.ps.log | 6.3     | 0.9272   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_3.profile.ps.log  | 6.0     | 0.8932   | 5.5519  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_40.profile.ps.log | 6.1     | 0.9060   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_41.profile.ps.log | 5.9     | 0.8781   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_42.profile.ps.log | 6.0     | 0.8881   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_43.profile.ps.log | 6.3     | 0.9361   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_44.profile.ps.log | 6.1     | 0.8993   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_45.profile.ps.log | 5.9     | 0.8808   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_46.profile.ps.log | 6.2     | 0.9110   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_47.profile.ps.log | 6.3     | 0.9293   | 5.5548  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_48.profile.ps.log | 6.0     | 0.8943   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_49.profile.ps.log | 6.2     | 0.9115   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_4.profile.ps.log  | 6.0     | 0.8862   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_50.profile.ps.log | 6.0     | 0.8866   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_5.profile.ps.log  | 5.9     | 0.8728   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_6.profile.ps.log  | 6.1     | 0.9031   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_7.profile.ps.log  | 5.5     | 0.8157   | 5.5539  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_8.profile.ps.log  | 5.5     | 0.8147   | 5.5529  |
+| 2017-05-26-19:19:30.original.remote.sparktest/2017-05-26-19:19:30.original.remote.sparktest_9.profile.ps.log  | 6.0     | 0.8858   | 5.5529  |
++---------------------------------------------------------------------------------------------------------------+---------+----------+---------+
