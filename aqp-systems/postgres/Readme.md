@@ -7,4 +7,4 @@ Following are the links to Google Sheets that contain accuracy and runtime measu
 * [Uniform Benchmark Results](https://docs.google.com/spreadsheets/d/1lp3EyTpnfglM-PnFhAou8NZJ-xKikJfB_P0hXnUYuQw/edit?usp=sharing)
 
 ## Author Notes
-The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.io). Feel free to contact him at [guna@cs.washington.edu](mailto:guna@cs.uw.edu) for any further details. 
+The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.io). Feel free to [mail](mailto:guna@cs.uw.edu) him for any further details. 
