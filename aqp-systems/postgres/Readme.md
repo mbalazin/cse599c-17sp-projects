@@ -1,5 +1,5 @@
 # How well can POSTGRES handle approximate queries?
-![Query 0 - Skewed Error Rates](https://docs.google.com/spreadsheets/d/1lp3EyTpnfglM-PnFhAou8NZJ-xKikJfB_P0hXnUYuQw/pubchart?oid=1800207603&format=image)
+![][q0-skewed] ![][q0-uniform] 
 ## Results
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
 
@@ -8,3 +8,6 @@ Following are the links to Google Sheets that contain accuracy and runtime measu
 
 ## Author Notes
 The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.io). Feel free to [mail](mailto:guna@cs.uw.edu) him for any further details. 
+
+[q0-skewed]: https://docs.google.com/spreadsheets/d/16ZAVpPt78mrzYB0bd0ZVl-fSTfQSxy79HAKNYEkjQSs/pubchart?oid=549228374&format=image
+[q0-uniform]: https://docs.google.com/spreadsheets/d/1lp3EyTpnfglM-PnFhAou8NZJ-xKikJfB_P0hXnUYuQw/pubchart?oid=1800207603&format=image
