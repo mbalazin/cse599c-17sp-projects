@@ -18,7 +18,7 @@ Following are the links to Google Sheets for the raw runtimes for the Zipfian an
 * [Uniform Benchmark Results](https://docs.google.com/spreadsheets/d/1LC7m6qt47X9XNNe8b3bl-m9JwAVov924DV-b17X2mlw/pubhtml)
 
 ## Author Notes
-The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.io). Feel free to [mail](mailto:guna@cs.uw.edu) him for any further details. 
+The experiments and analysis was done by [Walter Cai](wzcai.github.io). Feel free to [mail](mailto:walter@cs.washington.edu) him for any further details. 
 
 [zipf10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=530882143&format=image
 [zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=913376812&format=image
