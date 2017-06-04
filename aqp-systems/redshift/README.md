@@ -8,6 +8,7 @@
 ![][unif10-std] ![][unif100-std]
 ***
 ### Approximate Query Error
+(average error taken over group-by cells if applicable)
 
 |Query | Zipf 10         | Zipf 100       | Unif 10         | Unif 100        |
 | -----| --------------- | -------------- | --------------- | --------------- |
