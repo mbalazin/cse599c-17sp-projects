@@ -1,9 +1,9 @@
 # How well can POSTGRES handle approximate queries?
 ### Query 0
 
-** Skewed Data **
+**Skewed Data**  
 ![][q0-skewed] ![][q0-skewed-time]
-** Uniform Data **
+**Uniform Data**  
 ![][q0-uniform] ![][q0-uniform-time]
 
 ## Results
