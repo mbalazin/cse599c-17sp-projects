@@ -2,24 +2,23 @@
 ### Query 0
 ![][q0-skewed] ![][q0-skewed-time]
 ![][q0-uniform] ![][q0-uniform-time]
----
+***
 ### Query 1
-
 ![][q1-skewed] ![][q1-skewed-time]
 ![][q1-uniform] ![][q1-uniform-time]
----
+***
 ### Query 2
 ![][q2-skewed] ![][q2-skewed-time]
 ![][q2-uniform] ![][q2-uniform-time]
----
+***
 ### Query 3
 ![][q3-skewed] ![][q3-skewed-time]
 ![][q3-uniform] ![][q3-uniform-time]
----
+***
 ### Query 4
 ![][q4-skewed] ![][q4-skewed-time]
 ![][q4-uniform] ![][q4-uniform-time]
----
+***
 ## Results
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
 
