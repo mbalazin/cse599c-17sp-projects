@@ -20,12 +20,12 @@ Following are the links to Google Sheets for the raw runtimes for the Zipfian an
 ## Author Notes
 The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.io). Feel free to [mail](mailto:guna@cs.uw.edu) him for any further details. 
 
-[zipf10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=530882143&format=interactive
-[zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=913376812&format=interactive
-[unif10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1223297460&format=interactive
-[zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1667719545&format=interactive
+[zipf10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=530882143&format=image
+[zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=913376812&format=image
+[unif10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1223297460&format=image
+[zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1667719545&format=image
 
-[zipf10-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1222793937&format=interactive
-[zipf100-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=79636558&format=interactive
-[unif10-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=123212141&format=interactive
-[unif100-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=348046484&format=interactive
+[zipf10-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1222793937&format=image
+[zipf100-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=79636558&format=image
+[unif10-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=123212141&format=image
+[unif100-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=348046484&format=image
