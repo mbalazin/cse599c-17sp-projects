@@ -1,6 +1,11 @@
 # How well can POSTGRES handle approximate queries?
+### Query 0
+
+** Skewed Data **
 ![][q0-skewed] ![][q0-skewed-time]
+** Uniform Data **
 ![][q0-uniform] ![][q0-uniform-time]
+
 ## Results
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
 
