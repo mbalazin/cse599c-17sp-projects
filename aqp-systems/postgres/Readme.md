@@ -1,32 +1,23 @@
 # How well can POSTGRES handle approximate queries?
 ### Query 0
-**Skewed Data**  
 ![][q0-skewed] ![][q0-skewed-time]
-**Uniform Data**  
 ![][q0-uniform] ![][q0-uniform-time]
 ---
 ### Query 1
-**Skewed Data**  
+
 ![][q1-skewed] ![][q1-skewed-time]
-**Uniform Data**  
 ![][q1-uniform] ![][q1-uniform-time]
 ---
 ### Query 2
-**Skewed Data**  
 ![][q2-skewed] ![][q2-skewed-time]
-**Uniform Data**  
 ![][q2-uniform] ![][q2-uniform-time]
 ---
 ### Query 3
-**Skewed Data**  
 ![][q3-skewed] ![][q3-skewed-time]
-**Uniform Data**  
 ![][q3-uniform] ![][q3-uniform-time]
 ---
 ### Query 4
-**Skewed Data**  
 ![][q4-skewed] ![][q4-skewed-time]
-**Uniform Data**  
 ![][q4-uniform] ![][q4-uniform-time]
 ---
 ## Results
