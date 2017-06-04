@@ -27,7 +27,31 @@ Following are the links to Google Sheets for the raw runtimes for the Zipfian an
 * [Uniform Benchmark Results](https://docs.google.com/spreadsheets/d/1LC7m6qt47X9XNNe8b3bl-m9JwAVov924DV-b17X2mlw/pubhtml)
 
 ## Author Notes
-The experiments and analysis was done by [Walter Cai](wzcai.github.io). Feel free to [mail](mailto:walter@cs.washington.edu) him for any further details. 
+The experiments and analysis was done by [Walter Cai](wzcai.github.io). Feel free to [mail](mailto:walter@cs.washington.edu) him for any further details.
+
+## Queries
+q1: SELECT COUNT (DISTINCT L_PARTKEY)
+    FROM LINEITEM;
+q2: SELECT DATE_PART(mon, L_RECEIPTDATE) AS MONTH, COUNT(DISTINCT L_PARTKEY)
+    FROM LINEITEM
+    GROUP BY MONTH
+    ORDER BY MONTH;
+q3: SELECT DATE_PART(mon, O_ORDERDATE) AS MONTH, COUNT(DISTINCT L_PARTKEY)
+    FROM LINEITEM, ORDERORDER
+    WHERE L_ORDERKEY = O_ORDERKEY
+    GROUP BY MONTH
+    ORDER BY MONTH;
+q4: SELECT MEDIAN(L_EXTENDEDPRICE)
+    FROM LINEITEM;
+q5: SELECT DATE_PART(mon, L_RECEIPTDATE) AS MONTH, MEDIAN(L_EXTENDEDPRICE)
+    FROM LINEITEM
+    GROUP BY MONTH
+    ORDER BY MONTH;
+q6: SELECT DATE_PART(mon, O_ORDERDATE) AS MONTH, MEDIAN(L_EXTENDEDPRICE)
+    FROM LINEITEM, ORDERORDER
+    WHERE L_ORDERKEY = O_ORDERKEY
+    GROUP BY MONTH
+    ORDER BY MONTH;
 
 [zipf10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=530882143&format=image
 [zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1036452611&format=image
