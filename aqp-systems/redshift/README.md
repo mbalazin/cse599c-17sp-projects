@@ -1,11 +1,12 @@
 # How well can REDSHIFT handle approximate queries?
 ### Average Runtime
-![][zipf10-avg] ![][zipf100-avg]
-![][unif10-avg] ![][unif100-avg]
+[][zipf100-avg]![][unif100-avg]
 ***
 ### Runtime Stard Deviation
-![][zipf10-std] ![][zipf100-std]
-![][unif10-std] ![][unif100-std]
+![][zipf100-std]![][unif100-std]
+***
+### Runtime Stard Deviation (minus outliers)
+![][zipf100-std-outliers]![][unif100-std-outliers]
 ***
 ### Approximate Query Error
 (average error taken over group-by cells if applicable)
@@ -20,7 +21,7 @@
 | q6   | 0.002108891085  | 0.001907817179 | 0.008647518662  | 0.008351887156  |
 ***
 
-## Results
+## Raw Results
 Following are the links to Google Sheets for the raw runtimes for the Zipfian and Uniform Benchmark Results
 
 * [Zipfian Benchmark Results](https://docs.google.com/spreadsheets/d/1SnzAy3DHXxXw4LXwEG8gyT7TX4orwsZ50hI2_Xgmy4s/pubhtml)
@@ -71,12 +72,11 @@ GROUP BY MONTH
 ORDER BY MONTH;
 ```
 
-[zipf10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=530882143&format=image
 [zipf100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1036452611&format=image
-[unif10-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=44203486&format=image
 [unif100-avg]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=37376812&format=image
 
-[zipf10-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=1222793937&format=image
 [zipf100-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=79636558&format=image
-[unif10-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=123212141&format=image
 [unif100-std]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=348046484&format=image
+
+[zipf100-std-outliers]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=720421779&format=image
+[unif100-std-outliers]: https://docs.google.com/spreadsheets/d/1_VVatAB6AlGAifh-LYmf4iHSqPC8uFsRMbdJsv7M4kE/pubchart?oid=871301525&format=image
