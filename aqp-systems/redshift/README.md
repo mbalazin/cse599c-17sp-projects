@@ -1,11 +1,15 @@
 # How well can REDSHIFT handle approximate queries?
+
+
+## Runtimes
+(Zipfian: Yellow, Uniform: Green)
 ### Average Runtime
 [][zipf100-avg]![][unif100-avg]
 ***
-### Runtime Stard Deviation
+### Runtime Stardard Deviation
 ![][zipf100-std]![][unif100-std]
 ***
-### Runtime Stard Deviation (minus outliers)
+### Runtime Stardard Deviation (minus outliers)
 ![][zipf100-std-outliers]![][unif100-std-outliers]
 ***
 ### Approximate Query Error
@@ -19,7 +23,9 @@
 | q4   | 0.0002548925203 | 0.000820815891 | 0.000517471471  | 0.0006265493476 |
 | q5   | 0.0002548925203 | 0.000820815891 | 0.000517471471  | 0.0006265493476 |
 | q6   | 0.002108891085  | 0.001907817179 | 0.008647518662  | 0.008351887156  |
-***
+
+*** Key Takeaways
+
 
 ## Raw Results
 Following are the links to Google Sheets for the raw runtimes for the Zipfian and Uniform Benchmark Results
