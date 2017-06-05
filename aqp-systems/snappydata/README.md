@@ -1,10 +1,31 @@
 # How well can SnappyData handle approximate queries?
-***Important Notice: This experiment was run in May of 2017, and at the time of the experiments, SnappyData was a newer system still being heavily developed. Therefore, the documentation did not have a ton of examples and did not explain the configuration options well. A lot of the problems I experience with SnappyData could likely have been fixed with help and tuning from someone more knowledgeable about the system.
+***Important: This experiment was run in May of 2017, and at the time of the experiments, SnappyData was a newer system still being heavily developed. Therefore, the documentation did not have a ton of examples and did not explain the configuration options well. A lot of the problems I experience with SnappyData could likely have been fixed with help and tuning from someone more knowledgeable about the system.
 
 ### Overview
-SnappyData
+[SnappyData](http://snappydatainc.github.io/snappydata/) is a database management system that combines [Apache Spark](https://spark.apache.org/) with an in-memory database system to provide a database system that can provide OLAP and OLTP support. In particular, they combine the OLAP system, Apache Spark, with the OLTP system, [Pivotal GemFile](https://pivotal.io/pivotal-gemfire) (open source version is [Apache Geode](http://geode.apache.org/)).
+
+Their main idea is to extend Spark's RDDs to be mutable and stored in-memory to allow for fast query processing. They further optimize the processing by utilizing vectorization and code generation. They support three types of tables: column, row, and probabilistic. Column tables extend Spark's RDDs, row tables extend GemFire's tables, and probabilistic tables are for samples. These sample table are our main focus because they are used in SnappyData's [Synopsis Data Engine](http://snappydatainc.github.io/snappydata/aqp/).
+
+SnappyData's SDE is an AQP system that automatically chooses which sample to use during query processing in order to satisfy an accuracy contract provided by the user (based off of the [BlinkDB](https://sameeragarwal.github.io/blinkdb_eurosys13.pdf) system). In particular, the user creates stratified samples where each sample is stratified on a specific Query Column Set (QCS). The QCS is typically one of the most commonly used set of dimensions in the GroupBy, Where, and Having clauses of your queries. In addition to the QCS, the user provides a sampler percent.
+
+After the samples are creates, the user simply has to add the keywords ``WITH ERROR <fraction> [CONFIDENCE <fraction>] [BEHAVIOR <string>]`` to the end of a query to invoke the SDE. The error and confidence fractions create the accuracy contract the system must meet. The system then chooses the best sample to use that satisfies the contract. If no such sample exists, the system, by default, runs the query on the original table. That behavior, however, can be modified with the ``[BEHAVIOR]`` clause at the end of the query.
+
+For more details, see their [paper](http://cidrdb.org/cidr2017/papers/p28-mozafari-cidr17.pdf).
 
 ### Experiment Set Up
+To test the accuracy and runtime of SnappyData, we used two 100 GB versions of TPCH: one that is uniform and one that is skewed. We issued the following 5 queries:
+
+1. SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+
+2. SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM  WHERE month(L_RECEIPTDATE) = 8 WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+
+3. SELECT month(L_RECEIPTDATE) AS MONTH, COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM  GROUP BY month(L_RECEIPTDATE) ORDER BY month(L_RECEIPTDATE) WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+
+4. SELECT S_NATIONKEY AS NATION, COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , SUPPLIER WHERE L_SUPPKEY = S_SUPPKEY GROUP BY S_NATIONKEY ORDER BY S_NATIONKEY WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+
+5. SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , ORDERS WHERE L_ORDERKEY = O_ORDERKEY AND O_ORDERPRIORITY = '1-URGENT' WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+
+
 This is where I ran into the most problems with SnappyData. 
 
 ### Query Accuracy 
