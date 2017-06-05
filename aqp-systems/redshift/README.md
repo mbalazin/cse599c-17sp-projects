@@ -7,13 +7,19 @@ Redshift offers approximation on two aggregation operations: 'COUNT(DISTINCT(...
 ## Runtimes
 (Zipfian: Yellow, Uniform: Green)
 ### Average Runtime
-![][zipf100-avg] ![][unif100-avg]
+
+| [![][zipf100-avg]] | [![][unif100-avg]] |
+
 ***
 ### Runtime Stardard Deviation
-![][zipf100-std] ![][unif100-std]
+
+| [![][zipf100-std]] | [![][unif100-std]] |
+
 ***
 ### Runtime Stardard Deviation (minus outliers)
-![][zipf100-std-outliers] ![][unif100-std-outliers]
+
+| [![][zipf100-std-outliers]] | [![][unif100-std-outliers]] |
+
 ***
 ### Approximate Query Error
 (average error taken over group-by cells if applicable)
