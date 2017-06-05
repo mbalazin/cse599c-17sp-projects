@@ -8,22 +8,27 @@ Their main idea is to extend Spark's RDDs to be mutable and stored in-memory to 
 
 SnappyData's SDE is an AQP system that automatically chooses which sample to use during query processing in order to satisfy an accuracy contract provided by the user (based off of the [BlinkDB](https://sameeragarwal.github.io/blinkdb_eurosys13.pdf) system). In particular, the user creates stratified samples where each sample is stratified on a specific Query Column Set (QCS). The QCS is typically one of the most commonly used set of dimensions in the GroupBy, Where, and Having clauses of your queries. In addition to the QCS, the user provides a sampler percent.
 
-After the samples are creates, the user simply has to add the keywords ``WITH ERROR <fraction> [CONFIDENCE <fraction>] [BEHAVIOR <string>]`` to the end of a query to invoke the SDE. The error and confidence fractions create the accuracy contract the system must meet. The system then chooses the best sample to use that satisfies the contract. If no such sample exists, the system, by default, runs the query on the original table. That behavior, however, can be modified with the ``[BEHAVIOR]`` clause at the end of the query.
+After the samples are creates, the user simply has to add the keywords ``WITH ERROR <fraction> [CONFIDENCE <fraction>] [BEHAVIOR <string>]`` to the end of a query to invoke the SDE. The error and confidence fractions create the accuracy contract the system must meet. The system then chooses the best sample to use that satisfies the contract. If no such sample exists, the system, by default, runs the query on the original table. That behavior, however, can be modified with the ``BEHAVIOR`` clause at the end of the query.
 
 For more details, see their [paper](http://cidrdb.org/cidr2017/papers/p28-mozafari-cidr17.pdf).
 
 ### Experiment Set Up
-To test the accuracy and runtime of SnappyData, we used two 100 GB versions of TPCH: one that is uniform and one that is skewed. We issued the following 5 queries:
+To test the accuracy and runtime of SnappyData, we utilized Amazon AWS to run SnappyData using a m4.xlarge (15 GB RAM) single node setup. We used two 100 GB versions of TPCH stored in Amazon S3: one that is uniform and one that is skewed. We generated three different samples on the LINEITEM table using the following QCSs and option clauses:
+* L_RECEIPTDATE bucketized on month: ```(qcs 'month(L_RECEIPTDATE)', fraction '0.01')```
+* L_EXTENDEDPRICE bucketized into 10 buckets: ```(buckets '10', qcs 'month(L_EXTENDEDPRICE)', fraction '0.01')```
+* L_ORDERKEY bucketized into 10 buckets: ```(buckets '10', qcs 'month(L_ORDERKEY)', fraction '0.01')```
+* L_RECEIPTDATE, L_EXTENDEDPRICE bucketized into 10 buckets: ```(buckets '10', qcs 'month(L_RECEIPTDATE, L_EXTENDEDPRICE)', fraction '0.01')```
+We then issued the following 5 queries 5 times each:
 
-1. SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+1. '''SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM WITH ERROR 0.1 BEHAVIOR 'do_nothing';'''
 
-2. SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM  WHERE month(L_RECEIPTDATE) = 8 WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+2. '''SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM  WHERE month(L_RECEIPTDATE) = 8 WITH ERROR 0.1 BEHAVIOR 'do_nothing';'''
 
-3. SELECT month(L_RECEIPTDATE) AS MONTH, COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM  GROUP BY month(L_RECEIPTDATE) ORDER BY month(L_RECEIPTDATE) WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+3. '''SELECT month(L_RECEIPTDATE) AS MONTH, COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM  GROUP BY month(L_RECEIPTDATE) ORDER BY month(L_RECEIPTDATE) WITH ERROR 0.1 BEHAVIOR 'do_nothing';'''
 
-4. SELECT S_NATIONKEY AS NATION, COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , SUPPLIER WHERE L_SUPPKEY = S_SUPPKEY GROUP BY S_NATIONKEY ORDER BY S_NATIONKEY WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+4. '''SELECT S_NATIONKEY AS NATION, COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , SUPPLIER WHERE L_SUPPKEY = S_SUPPKEY GROUP BY S_NATIONKEY ORDER BY S_NATIONKEY WITH ERROR 0.1 BEHAVIOR 'do_nothing';'''
 
-5. SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , ORDERS WHERE L_ORDERKEY = O_ORDERKEY AND O_ORDERPRIORITY = '1-URGENT' WITH ERROR 0.1 BEHAVIOR 'do_nothing';
+5. '''SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , ORDERS WHERE L_ORDERKEY = O_ORDERKEY AND O_ORDERPRIORITY = '1-URGENT' WITH ERROR 0.1 BEHAVIOR 'do_nothing';'''
 
 
 This is where I ran into the most problems with SnappyData. 
