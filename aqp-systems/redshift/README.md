@@ -8,7 +8,7 @@ Redshift offers approximation on two aggregation operations: 'COUNT(DISTINCT(...
 (Zipfian: Yellow, Uniform: Green)
 ### Average Runtime
 
-| ![][zipf100-avg] | ![][unif100-avg] |
+![][zipf100-avg] | ![][unif100-avg]
 
 ***
 ### Runtime Stardard Deviation
