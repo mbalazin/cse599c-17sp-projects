@@ -8,11 +8,11 @@ SnappyData
 This is where I ran into the most problems with SnappyData. 
 
 ### Query Accuracy 
-![][skewed-err] ![][unifrom-err]
+![][skewed-err] ![][uniform-err]
 
 ### Runtime
-![][skewed-sample-time] ![][unifrom-sample-time]
-![][skewed-true-time] ![][unifrom-true-time]
+![][skewed-sample-time] ![][uniform-sample-time]
+![][skewed-true-time] ![][uniform-true-time]
 ***
 ## Result Data
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
