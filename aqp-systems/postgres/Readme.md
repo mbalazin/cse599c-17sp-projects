@@ -48,7 +48,7 @@ The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.i
 [q4-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-time-4.png
 [q4-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-time-4.png
 
-[q5-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-error-5.png
-[q5-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-error-5.png
-[q5-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-time-5.png
-[q5-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-time-5.png
+[q5-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-error-5.png
+[q5-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-error-5.png
+[q5-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-time-5.png
+[q5-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-time-5.png
