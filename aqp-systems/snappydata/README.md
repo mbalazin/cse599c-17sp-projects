@@ -35,16 +35,20 @@ This is where we ran into the most problems with SnappyData. There are three mai
 
 We first tried the Zeppelin notebook. It was great for the initial use, but it does __not__ have an import notebook feature, meaning all queries had to be copied into the notebook. Additionally, to comment out lines in the SQL interpreter, the EOL character must be removed. As this was not ideal for running multiple tests, we then tried to use their EC2 launch script. This was also unsuccessful because even after adding in some necessary jar files, the SQL shell could not access S3. We lastly tried to launch our own cluster, download SnappyData on the cluster, and use SnappyData's local launch script. This was, again, unsuccessful. For one, we could not use the SQL shell because it did not having timing capabilities. Also, when we ran the queries though the Scala shell, all the approximate query results came back empty. We knew an empty result was incorrect because we had tested one of the queries on Zeppelin. In the end, we ended up using Zeppelin to do the experiments, which was not ideal. Therefore, because all of the queries had to be run manually, we were only able to do one run of the true queries rather than the planned 5.
 
-Another problem came when trying to make the samples. Samples 2 through 4 did not run because they system ran our of memory. We are not sure why this happened, and maybe we needed to have some parameter set or to specify we wanted the sample to be column-stored (we were using the default storage). However, the documentation was not clear on this. Therefore, we only had the first sample in our experiment.
+Another problem came when trying to make the samples. Samples 2 through 4 could not be created because the system ran out of memory. We are not sure why this happened, and maybe we needed to have some parameter set or to specify we wanted the sample to be column-stored (we were using the default storage). However, the documentation was not clear on this. Therefore, we only had the first sample in our experiment.
 
 The last problem we dealt with was that we couldn't create two SnappyData clusters using iSight in the same zone on Amazon AWS. We believe this had something to do with the security groups.
 
 ### Query Accuracy 
 ![][skewed-err] ![][uniform-err]
+These graphs show the percent error versus the query for the skewed data (yellow) versus the uniform data (green). As you can see, SnapyData does extremely well in terms of percent error, achieving less than 0.2 percent error (that is 0.2 percent error and not 20 percent error). They did worst on SUM and COUNT of the 4th query, likely because that query involves a join. The interesting aspect is that SnappyData does slightly worse on the uniform data rather than the skewed. The reason for this is likely because of how TCH is skewed. TPCH is skewed in the order it is stored. This is the same order of L_RECEIPTDATE, which means that each distinct value in L_RECEIPTDATE will likely have the same or similar values for the aggregates. Therefore, the uniform TPCH will actually have more variation for each bucket in the L_RECEIPTDATE sample; therefore, SnappyData will do better on the stratified data.
 
 ### Runtime
 ![][skewed-sample-time] ![][uniform-sample-time]
 ![][skewed-true-time] ![][uniform-true-time]
+These graphs show the average runtime of the 5 queries in seconds. The graphs for the sample runtime versus the true runtime are separated because the axis are so different. SnappyData's AQP queries are about 10x faster than the non-approximate queries run on the full data. As explained before, we did not run all 5 trials for the non-approximate queries, but for the approximate queries, the standard deviation was approximately 0.42 seconds for query 5 and under 0.15 seconds for the other queries for both the uniform and skewed data.
+
+The other aspect to note is that query 5 never finished for the uniform data. It ran for 3 hours, and then the Zeppelin notebook froze. For the skewed data, after 50 minutes of running, it returned a ``java.lang.reflect.InvocationTargetException`` error. We are not sure what this meant but were able to determine the accuracy because our experiments on Postgres used the same queries.
 ***
 ## Result Data
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
@@ -59,6 +63,6 @@ The experiments and analysis was done by [Laurel Orr](https://homes.cs.washingto
 [uniform-err]:https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=899616445&format=image
 [skewed-sample-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=721090478&format=image
 [uniform-sample-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=898811322&format=image
-[skewed-true-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=721090478&format=image
+[skewed-true-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=797789770&format=interactive
 [uniform-true-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=1138185761&format=image
 
