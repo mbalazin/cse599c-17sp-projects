@@ -30,6 +30,8 @@ We then issued the following 5 queries 5 times each:
 
 5. ```SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_QTY, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM , ORDERS WHERE L_ORDERKEY = O_ORDERKEY AND O_ORDERPRIORITY = '1-URGENT' WITH ERROR 0.1 BEHAVIOR 'do_nothing';```
 
+The 'do_nothing' indicates that we want SnappyData to return the estimated answer even if they can't satisfy the accuracy contract.
+
 ### Experiment Reality
 This is where we ran into the most problems with SnappyData. There are three main ways to start a SnappyData cluster. One is by using their [iSight CloudBuilder](http://www.snappydata.io/cloudbuilder) tool that does most of the work for you and gives you a Zeppelin notebook to run queries. The other is to use an EC2 launch script to start everything via Amazon AWS and use the command line or a Zeppelin notebook to run queries. The third is to launch your own cluster and do the installation manually.
 
