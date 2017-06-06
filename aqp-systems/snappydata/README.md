@@ -12,7 +12,7 @@ After the samples are creates, the user simply has to add the keywords ``WITH ER
 
 For more details, see their [paper](http://cidrdb.org/cidr2017/papers/p28-mozafari-cidr17.pdf).
 
-##Experiments
+## Experiments
 
 ### Experiment Plan
 To test the accuracy and runtime of SnappyData, we utilized Amazon AWS to run SnappyData using a m4.xlarge (15 GB RAM) single node setup. We used two 100 GB versions of TPCH stored in Amazon S3: one that is uniform and one that is skewed (theta of 1.0). We generated three different samples on the LINEITEM table using the following QCSs and option clauses:
