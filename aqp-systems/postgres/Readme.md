@@ -29,7 +29,7 @@ A bernoulli sample of the database allows for unbiased estimates of 3 aggregate 
   
 Further, the above estimators are said to be unbiased, which means that the expected value of the estimator is the exact value of the aggregate on the complete relation. 
   
-On the other hand, similar estimates from a system sample of the relation does not come with any such theoretical guarantees. In practice, system sampling is seen to yield quite good accuracy for slighly large sample sizes. However, skewed distributions (both in value and organization on disk) can increase estimation errors. 
+On the other hand, similar estimates from a system sample of the relation does not come with any theoretical guarantees. In practice, system sampling is seen to yield quite good accuracy for slighly large sample sizes. However, skewed distributions (both in value and organization on disk) can increase estimation errors. 
 
 
 ### Query 1
