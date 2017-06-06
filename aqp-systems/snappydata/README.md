@@ -1,4 +1,4 @@
-# How well can SnappyData handle approximate queries?
+# How well can SNAPPYDATA handle approximate queries?
 ***Important: This experiment was run in May of 2017, and at the time of the experiments, SnappyData was a newer system still being heavily developed. Therefore, the documentation did not have a ton of examples and did not explain the configuration options well. A lot of the problems I experience with SnappyData could likely have been fixed with help and tuning from someone more knowledgeable about the system.
 
 ### Overview
@@ -17,9 +17,9 @@ For more details, see their [paper](http://cidrdb.org/cidr2017/papers/p28-mozafa
 ### Experiment Plan
 To test the accuracy and runtime of SnappyData, we utilized Amazon AWS to run SnappyData using a m4.xlarge (15 GB RAM) single node setup. We used two 100 GB versions of TPCH stored in Amazon S3: one that is uniform and one that is skewed (theta of 1.0). We generated three different samples on the LINEITEM table using the following QCSs and option clauses:
 * L_RECEIPTDATE bucketized on month: ```(qcs 'month(L_RECEIPTDATE)', fraction '0.01')```
-* L_EXTENDEDPRICE bucketized into 10 buckets: ```(buckets '10', qcs 'month(L_EXTENDEDPRICE)', fraction '0.01')```
-* L_ORDERKEY bucketized into 10 buckets: ```(buckets '10', qcs 'month(L_ORDERKEY)', fraction '0.01')```
-* L_RECEIPTDATE, L_EXTENDEDPRICE bucketized into 10 buckets: ```(buckets '10', qcs 'month(L_RECEIPTDATE, L_EXTENDEDPRICE)', fraction '0.01')```
+* L_EXTENDEDPRICE bucketized into 10 buckets: ```(buckets '10', qcs 'L_EXTENDEDPRICE', fraction '0.01')```
+* L_ORDERKEY bucketized into 10 buckets: ```(buckets '10', qcs 'L_ORDERKEY', fraction '0.01')```
+* L_RECEIPTDATE, L_EXTENDEDPRICE bucketized into 10 buckets: ```(buckets '10', qcs 'L_RECEIPTDATE, L_EXTENDEDPRICE', fraction '0.01')```
 We then issued the following 5 queries 5 times each:
 
 1. ```SELECT COUNT(*) AS NUM_ITEMS, SUM(L_QUANTITY) AS TOT_COST, AVG(L_QUANTITY) AS AVG_QTY FROM LINEITEM WITH ERROR 0.1 BEHAVIOR 'do_nothing';```
