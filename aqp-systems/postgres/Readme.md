@@ -1,4 +1,18 @@
 # How well can POSTGRES handle approximate queries?
+[POSTGRES](https://www.postgresql.org/) is an open source database that has been developed and maintained both by industry and academia for the last two decades. From release 9.5, postgres started supporting sampling in order to enable approximate query processing. There is a huge body of work in the database community relating to estimation of query results from a sample of the database. There are several types of sampling techniques that are prevelant and each is known to provide unbiased estimators for different types of queries. 
+
+## Sampling Support
+Postgres supports two simple sampling techniques, namely **bernoulli** and **system** sampling. In Bernoulli sampling, the complete relation is scanned and individual tuples are randomly chosen (imagine a coin flip). The key bottleneck here is that the even if the query runs on a sample of data, we pay the cost of scanning the whole relation once. In some cases, this in itself could be a heavy operation.  
+  
+To overcome this, postgres supports an additional form of sampling called system sampling. System sampling operates at the granularity of pages instead of tuples. A random number is generated for each physical page in a relation. Based on this number and the sampling percentage specified it is either included or excluded from the sample. If a page is included, all tuples that occur in that physical page is included in the sample.  
+
+The syntax to sample from a relation in postgres is very simple. The relation name contains additional `TABLESAMPLE` clause that specifies the sampling technique (`BERNOULLI` or `SYSTEM`) and sampling percentage. Here is an example aggregate query on a sample of the `LINEITEM` table from TPC-H benchmark.
+
+```sql
+SELECT COUNT(*) AS CNT 
+FROM LINEITEM TABLESAMPLE BERNOULLI(0.1);
+```
+
 ### Query 1
 ![][q1-skewed] ![][q1-skewed-time]
 ![][q1-uniform] ![][q1-uniform-time]
