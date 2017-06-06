@@ -43,12 +43,14 @@ The last problem we dealt with was that we couldn't create two SnappyData cluste
 
 ### Query Accuracy
 (Skewed: Yellow (S), Uniform: Green (U))
+
 ![][skewed-err] ![][uniform-err]
 
 These graphs show the percent error versus the query for the skewed data (yellow and with S) versus the uniform data (green and with U). As you can see, SnapyData does extremely well in terms of percent error, achieving less than 0.2 percent error (that is 0.2 percent error and not 20 percent error). They did worst on SUM and COUNT of the 4th query, likely because that query involves a join. The interesting aspect is that SnappyData does slightly worse on the uniform data rather than the skewed. The reason for this is likely because of how TCH is skewed. TPCH is skewed in the order it is stored. This is the same order of L_RECEIPTDATE, which means that each distinct value in L_RECEIPTDATE will likely have the same or similar values for the aggregates. Therefore, the uniform TPCH will actually have more variation for each bucket in the L_RECEIPTDATE sample; therefore, SnappyData will do better on the stratified data.
 
 ### Runtime
 (Skewed: Yellow (S), Uniform: Green (U))
+
 ![][skewed-sample-time] ![][uniform-sample-time]
 ![][skewed-true-time] ![][uniform-true-time]
 
