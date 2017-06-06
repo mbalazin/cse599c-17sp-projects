@@ -32,10 +32,30 @@ Further, the above estimators are said to be unbiased, which means that the expe
 On the other hand, similar estimates from a system sample of the relation does not come with any theoretical guarantees. In practice, system sampling is seen to yield quite good accuracy for slighly large sample sizes. However, skewed distributions (both in value and organization on disk) can increase estimation errors. 
 
 ## Experiments
-*objectives*
+In the rest of the report, we aim to compare the features that postgres supports quantitatively and analyze the scope of approximate query processing that can be performed using just these standard features available to any user. 
 
 ### Experimental Setup
-*aws instance types, etc.* 
+We perform all our experiments on Amazon AWS instances for purposes of interpretability and future extensibility. Specifically, we use a single node of `ic3.large` instance type. Following is a brief summary of the important configuration parameters of interest:
+
+| Configuration | Value  | 
+|---------------|:------:|
+| vCPU          | 2      |
+| Memory        | 15.25  |
+| Storage       | 500GB SSD|
+
+Further, we use the TPC-H benchmark to generate data. The data generator that is provided by TPCC generates a uniformly distributed data using a random generator. Aggregate estimates from samples drawn from a uniformly distributed data generally have low error rates. 
+  
+In cases where the population is skewed, the error rates can potentially shoot up. We perform all our experiments both on uniform and skewed data. We used the skewed TPC-H data generator made available [here](https://www.microsoft.com/en-us/download/details.aspx?id=52430) by Microsoft Research. The skew data generator uses a zipfian distribution with a user-specified value of theta. Higher the value of theta, more the skew in data. We use a skew parameter (theta) of 1. 
+  
+We generated 10GB and 100GB of uniform and skewed TPC-H relations and ingested them into postgres 9.5 on a single node AWS instance. 
+
+| Data Size             | Ingestion Time  | 
+|-----------------------|:---------------:|
+| Skewed data (10GB)    | 9m 25s          |
+| Uniform data (10GB)   | 8m 23s          |
+| Skewed data (100GB)   | 99m 22s         |
+| Uniform data (100GB)  | 100m 54s        |
+
 
 ### Query 1
 ```sql 
