@@ -56,8 +56,11 @@ We generated 10GB and 100GB of uniform and skewed TPC-H relations and ingested t
 | Skewed data (100GB)   | 99m 22s         |
 | Uniform data (100GB)  | 100m 54s        |
 
+All experiments below are performed 5 times and the results reported are mean, along with the standard deviations in our observations.
 
 ### Query 1
+We start with a very simple aggregate query on the largest table `LINEITEM` in the TPC-H benchmark. We compute all the three aggregates `count`, `sum` and `average` that are supported by Bernoulli sampling. We present the error percentage in the estimate and the corresponding runtimes for both uniform and skewed data in the graphs below.
+
 ```sql 
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_COST, 
@@ -68,6 +71,7 @@ FROM LINEITEM;
 ![][q1-uniform] ![][q1-uniform-time]
 ***
 ### Query 2
+Now, we add a select predicate to our aggregate query. 
 ```sql
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_COST, 
@@ -79,6 +83,7 @@ WHERE DATE_PART('month', L_RECEIPTDATE) = 8;
 ![][q2-uniform] ![][q2-uniform-time]
 ***
 ### Query 3
+In query 3, we compute a group-by aggregate query on the `LINEITEM` 
 ```sql
 SELECT DATE_PART('month', L_RECEIPTDATE) AS MONTH, 
        COUNT(*) AS NUM_ITEMS, 
@@ -92,6 +97,8 @@ ORDER BY MONTH;
 ![][q3-uniform] ![][q3-uniform-time]
 *** 
 ### Query 4
+Now, compute a group-by aggregate on the join of two tables. Note that we join a sample of `LINEITEM` with the complete `SUPPLIER` table. 
+
 ```sql
 SELECT S_NATIONKEY AS NATION, 
        COUNT(*) AS NUM_ITEMS, 
@@ -106,6 +113,7 @@ ORDER BY NATION;
 ![][q4-uniform] ![][q4-uniform-time]
 ***
 ### Query 5
+Query 5, computes an aggregate over join of two tables along with a select predicate:
 ```sql
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_QTY, 
