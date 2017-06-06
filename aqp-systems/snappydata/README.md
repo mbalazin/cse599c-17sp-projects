@@ -51,6 +51,10 @@ These graphs show the percent error versus the query for the skewed data (yellow
 These graphs show the average runtime of the 5 queries in seconds. The graphs for the sample runtime versus the true runtime are separated because the axis are so different. SnappyData's AQP queries are about 10x faster than the non-approximate queries run on the full data. As explained before, we did not run all 5 trials for the non-approximate queries, but for the approximate queries, the standard deviation was approximately 0.42 seconds for query 5 and under 0.15 seconds for the other queries for both the uniform and skewed data.
 
 The other aspect to note is that query 5 never finished for the uniform data. It ran for 3 hours, and then the Zeppelin notebook froze. For the skewed data, after 50 minutes of running, it returned a ``java.lang.reflect.InvocationTargetException`` error. We are not sure what this meant but were able to determine the accuracy because our experiments on Postgres used the same queries.
+
+### Conclusion
+While SnappyData did perform well once we got it working, the time spent getting everything running was painful. Further, it would likely not perform as well with other datasets that aren't artificially skewed since it could not generate stratified samples on continuous attributes (at least, we could not get it to generate those samples). However, we think this system has a lot of promise and could become a major contender in the AQP landscape, but for now, we'll stick to Postgres. It is also worth mentioning that SnappyData has a Slack channel that can be used to contact developers.
+
 ***
 ## Result Data
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
@@ -66,5 +70,5 @@ The experiments and analysis was done by [Laurel Orr](https://homes.cs.washingto
 [skewed-sample-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=721090478&format=image
 [uniform-sample-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=898811322&format=image
 [skewed-true-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=797789770&format=image
-[uniform-true-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=1138185761&format=image
+[uniform-true-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=958007450&format=image
 
