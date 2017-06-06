@@ -1,5 +1,5 @@
 # How well can POSTGRES handle approximate queries?
-[POSTGRES](https://www.postgresql.org/) is an open source database that has been developed and maintained both by industry and academia for the last two decades. From release 9.5, postgres started supporting sampling in order to enable approximate query processing. There is a huge body of work in the database community relating to estimation of query results from a sample of the database. There are several types of sampling techniques that are prevelant and each is known to provide unbiased estimators for different types of queries. 
+[POSTGRES](https://www.postgresql.org/) is an open source database that has been developed and maintained both by industry and academia for the last two decades. From release 9.5, postgres started supporting sampling in order to enable approximate query processing. There is a huge body of work in the database community relating to estimation of query results from a sample of the database. 
 
 ## Sampling Support
 Postgres supports two simple sampling techniques, namely **bernoulli** and **system** sampling. In Bernoulli sampling, the complete relation is scanned and individual tuples are randomly chosen (imagine a coin flip). The key bottleneck here is that the even if the query runs on a sample of data, we pay the cost of scanning the whole relation once. In some cases, this in itself could be a heavy operation.  
@@ -12,6 +12,25 @@ The syntax to sample from a relation in postgres is very simple. The relation na
 SELECT COUNT(*) AS CNT 
 FROM LINEITEM TABLESAMPLE BERNOULLI(0.1);
 ```
+Additionally, postgres admits a `REPEATABLE` clause that specifies a seed for the random generator used in sampling. This enables the user to obtain the same sample from the table, which is important for some queries that are required to be *repeatable*. Following is the syntax for repeatable sampling:
+
+```sql
+SELECT COUNT(*) AS CNT 
+FROM LINEITEM TABLESAMPLE BERNOULLI(0.1) REPEATABLE(200);
+```
+
+For further details on the `TABLESAMPLE` feature implementation, refer the official documentation [page](https://wiki.postgresql.org/wiki/TABLESAMPLE_Implementation). 
+
+## Theoretical Guarantees
+A bernoulli sample of the database allows for unbiased estimates of 3 aggregate functions, namely `COUNT`, `SUM` and `AVERAGE`. If the size of the relation is *n*, sample size is *s* and aggregate functions computed from the sample are *count*, *sum* and *avg* then we can compute an estimate of these aggregates on the overall relation as follows:
+* COUNT = *count* * *n* / *s*  
+* SUM = *sum* * *n* / *s*
+* AVERAGE = *average*
+  
+Further, the above estimators are said to be unbiased, which means that the expected value of the estimator is the exact value of the aggregate on the complete relation. 
+  
+On the other hand, similar estimates from a system sample of the relation does not come with any such theoretical guarantees. In practice, system sampling is seen to yield quite good accuracy for slighly large sample sizes. However, skewed distributions (both in value and organization on disk) can increase estimation errors. 
+
 
 ### Query 1
 ![][q1-skewed] ![][q1-skewed-time]
