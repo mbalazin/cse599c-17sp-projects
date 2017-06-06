@@ -33,22 +33,62 @@ On the other hand, similar estimates from a system sample of the relation does n
 
 
 ### Query 1
+```sql 
+SELECT COUNT(*) AS NUM_ITEMS, 
+       SUM(L_QUANTITY) AS TOT_COST, 
+       AVG(L_QUANTITY) AS AVG_QTY 
+FROM LINEITEM;
+```
 ![][q1-skewed] ![][q1-skewed-time]
 ![][q1-uniform] ![][q1-uniform-time]
 ***
 ### Query 2
+```sql
+SELECT COUNT(*) AS NUM_ITEMS, 
+       SUM(L_QUANTITY) AS TOT_COST, 
+       AVG(L_QUANTITY) AS AVG_QTY 
+FROM LINEITEM  
+WHERE DATE_PART('month', L_RECEIPTDATE) = 8;
+```
 ![][q2-skewed] ![][q2-skewed-time]
 ![][q2-uniform] ![][q2-uniform-time]
 ***
 ### Query 3
+```sql
+SELECT DATE_PART('month', L_RECEIPTDATE) AS MONTH, 
+       COUNT(*) AS NUM_ITEMS, 
+       SUM(L_QUANTITY) AS TOT_QTY, 
+       AVG(L_QUANTITY) AS AVG_QTY 
+FROM LINEITEM  
+GROUP BY MONTH 
+ORDER BY MONTH;
+```
 ![][q3-skewed] ![][q3-skewed-time]
 ![][q3-uniform] ![][q3-uniform-time]
-***
+*** 
 ### Query 4
+```sql
+SELECT S_NATIONKEY AS NATION, 
+       COUNT(*) AS NUM_ITEMS, 
+       SUM(L_QUANTITY) AS TOT_QTY, 
+       AVG(L_QUANTITY) AS AVG_QTY 
+FROM LINEITEM, SUPPLIER 
+WHERE L_SUPPKEY = S_SUPPKEY 
+GROUP BY NATION 
+ORDER BY NATION;
+```
 ![][q4-skewed] ![][q4-skewed-time]
 ![][q4-uniform] ![][q4-uniform-time]
 ***
 ### Query 5
+```sql
+SELECT COUNT(*) AS NUM_ITEMS, 
+       SUM(L_QUANTITY) AS TOT_QTY, 
+       AVG(L_QUANTITY) AS AVG_QTY 
+FROM LINEITEM , ORDER
+WHERE L_ORDERKEY = O_ORDERKEY AND 
+      O_ORDERPRIORITY = '1-URGENT';
+```
 ![][q5-skewed] ![][q5-skewed-time]
 ![][q5-uniform] ![][q5-uniform-time]
 ***
