@@ -41,11 +41,13 @@ The last problem we dealt with was that we couldn't create two SnappyData cluste
 
 ### Query Accuracy 
 ![][skewed-err] ![][uniform-err]
-These graphs show the percent error versus the query for the skewed data (yellow) versus the uniform data (green). As you can see, SnapyData does extremely well in terms of percent error, achieving less than 0.2 percent error (that is 0.2 percent error and not 20 percent error). They did worst on SUM and COUNT of the 4th query, likely because that query involves a join. The interesting aspect is that SnappyData does slightly worse on the uniform data rather than the skewed. The reason for this is likely because of how TCH is skewed. TPCH is skewed in the order it is stored. This is the same order of L_RECEIPTDATE, which means that each distinct value in L_RECEIPTDATE will likely have the same or similar values for the aggregates. Therefore, the uniform TPCH will actually have more variation for each bucket in the L_RECEIPTDATE sample; therefore, SnappyData will do better on the stratified data.
+
+These graphs show the percent error versus the query for the skewed data (yellow and with S) versus the uniform data (green and with U). As you can see, SnapyData does extremely well in terms of percent error, achieving less than 0.2 percent error (that is 0.2 percent error and not 20 percent error). They did worst on SUM and COUNT of the 4th query, likely because that query involves a join. The interesting aspect is that SnappyData does slightly worse on the uniform data rather than the skewed. The reason for this is likely because of how TCH is skewed. TPCH is skewed in the order it is stored. This is the same order of L_RECEIPTDATE, which means that each distinct value in L_RECEIPTDATE will likely have the same or similar values for the aggregates. Therefore, the uniform TPCH will actually have more variation for each bucket in the L_RECEIPTDATE sample; therefore, SnappyData will do better on the stratified data.
 
 ### Runtime
 ![][skewed-sample-time] ![][uniform-sample-time]
 ![][skewed-true-time] ![][uniform-true-time]
+
 These graphs show the average runtime of the 5 queries in seconds. The graphs for the sample runtime versus the true runtime are separated because the axis are so different. SnappyData's AQP queries are about 10x faster than the non-approximate queries run on the full data. As explained before, we did not run all 5 trials for the non-approximate queries, but for the approximate queries, the standard deviation was approximately 0.42 seconds for query 5 and under 0.15 seconds for the other queries for both the uniform and skewed data.
 
 The other aspect to note is that query 5 never finished for the uniform data. It ran for 3 hours, and then the Zeppelin notebook froze. For the skewed data, after 50 minutes of running, it returned a ``java.lang.reflect.InvocationTargetException`` error. We are not sure what this meant but were able to determine the accuracy because our experiments on Postgres used the same queries.
@@ -63,6 +65,6 @@ The experiments and analysis was done by [Laurel Orr](https://homes.cs.washingto
 [uniform-err]:https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=899616445&format=image
 [skewed-sample-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=721090478&format=image
 [uniform-sample-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=898811322&format=image
-[skewed-true-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=797789770&format=interactive
+[skewed-true-time]: https://docs.google.com/spreadsheets/d/1PFZNqnnJA9q70StIDHL72mY9iiHRIiD0XsiaEEexU00/pubchart?oid=797789770&format=image
 [uniform-true-time]: https://docs.google.com/spreadsheets/d/1QYPETzK2Rc33zE416WKV0qFrDQDfQ_AtJ2d-mvlE_5o/pubchart?oid=1138185761&format=image
 
