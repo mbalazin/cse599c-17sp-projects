@@ -1,0 +1,5 @@
+Ingestion Time:
+Skewed small : 9m25s
+Uniform small : 8m23s
+Skewed big : 99m22s
+Uniform big: 100m54s
