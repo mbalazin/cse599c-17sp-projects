@@ -12,6 +12,8 @@ After the samples are creates, the user simply has to add the keywords ``WITH ER
 
 For more details, see their [paper](http://cidrdb.org/cidr2017/papers/p28-mozafari-cidr17.pdf).
 
+##Experiments
+
 ### Experiment Plan
 To test the accuracy and runtime of SnappyData, we utilized Amazon AWS to run SnappyData using a m4.xlarge (15 GB RAM) single node setup. We used two 100 GB versions of TPCH stored in Amazon S3: one that is uniform and one that is skewed (theta of 1.0). We generated three different samples on the LINEITEM table using the following QCSs and option clauses:
 * L_RECEIPTDATE bucketized on month: ```(qcs 'month(L_RECEIPTDATE)', fraction '0.01')```
@@ -40,6 +42,8 @@ We first tried the Zeppelin notebook. It was great for the initial use, but it d
 Another problem came when trying to make the samples. Samples 2 through 4 could not be created because the system ran out of memory. We are not sure why this happened, and maybe we needed to have some parameter set or to specify we wanted the sample to be column-stored (we were using the default storage). However, the documentation was not clear on this. Therefore, we only had the first sample in our experiment.
 
 The last problem we dealt with was that we couldn't create two SnappyData clusters using iSight in the same zone on Amazon AWS. We believe this had something to do with the security groups.
+
+## Results
 
 ### Query Accuracy
 (Skewed: Yellow (S), Uniform: Green (U))
