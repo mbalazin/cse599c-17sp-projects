@@ -28,25 +28,25 @@ Following are the links to Google Sheets that contain accuracy and runtime measu
 ## Author Notes
 The experiments and analysis was done by [Guna Prasaad](http://gunaprsd.github.io). Feel free to [mail](mailto:guna@cs.uw.edu) him for any further details. 
 
-[q1-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-error-1.png
-[q1-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-error-1.png
-[q1-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-time-1.png
-[q1-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-time-1.png
+[q1-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-error-1.png
+[q1-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-error-1.png
+[q1-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-time-1.png
+[q1-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-time-1.png
 
-[q2-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-error-2.png
-[q2-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-error-2.png
-[q2-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-time-2.png
-[q2-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-time-2.png
+[q2-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-error-2.png
+[q2-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-error-2.png
+[q2-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-time-2.png
+[q2-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-time-2.png
 
-[q3-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-error-3.png
-[q3-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-error-3.png
-[q3-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-time-3.png
-[q3-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-time-3.png
+[q3-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-error-3.png
+[q3-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-error-3.png
+[q3-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-time-3.png
+[q3-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-time-3.png
 
-[q4-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-error-4.png
-[q4-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-error-4.png
-[q4-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-time-4.png
-[q4-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-time-4.png
+[q4-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-error-4.png
+[q4-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-error-4.png
+[q4-skewed-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/skewed-time-4.png
+[q4-uniform-time]: https://github.com/mbalazin/cse599c-17sp-projects/raw/master/aqp-systems/postgres/plots/uniform-time-4.png
 
 [q5-skewed]: https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/skewed-error-5.png
 [q5-uniform]:https://github.com/mbalazin/cse599c-17sp-projects/tree/master/aqp-systems/postgres/plots/uniform-error-5.png
