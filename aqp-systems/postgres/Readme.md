@@ -69,9 +69,13 @@ FROM LINEITEM;
 ```
 ![][q1-skewed] ![][q1-skewed-time]
 ![][q1-uniform] ![][q1-uniform-time]
+  
+Runtime profiles are similar for both skewed and uniform relations in each experiment, as we know that postgres does not do anything extra to handle skews. The exact query takes around 4-5 mins. Even the least accurate estimate from system sampling of 0.1% is within 1% error rate and that is encouraging. In essense, we can get an estimate within 1% error rate almost instantaneously even for a relation of 100GB. On the other hand, bernoulli sampling seems to provide much better accuracies but incurs a minimum of 1 min overhead to scan through the entire relation. We can also see that the error percentage in uniform is lesser than for skewed data, as expected. Please note that this difference can be higher with increasing skew. 
+
 ***
 ### Query 2
-Now, we add a select predicate to our aggregate query. 
+Now, we add a select predicate to our aggregate query. The main objective of this query is to understand how skew can affect such queries.
+
 ```sql
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_COST, 
@@ -81,6 +85,8 @@ WHERE DATE_PART('month', L_RECEIPTDATE) = 8;
 ```
 ![][q2-skewed] ![][q2-skewed-time]
 ![][q2-uniform] ![][q2-uniform-time]
+We see that skew does have more effect over queries with select predicates. The maximum error percentage is up to 3% from 1% for system sampling of 0.1 percentage. However, a system sampling of 1% or 5% which runs in (10-20s) will still provide an error percentage of 1%. Uniform data performs almost as good as in a query without select predicate i.e. within 1% error. 
+
 ***
 ### Query 3
 In query 3, we compute a group-by aggregate query on the `LINEITEM` 
