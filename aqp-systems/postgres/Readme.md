@@ -85,7 +85,8 @@ WHERE DATE_PART('month', L_RECEIPTDATE) = 8;
 ```
 ![][q2-skewed] ![][q2-skewed-time]
 ![][q2-uniform] ![][q2-uniform-time]
-We see that skew does have more effect over queries with select predicates. The maximum error percentage is up to 3% from 1% for system sampling of 0.1 percentage. However, a system sampling of 1% or 5% which runs in (10-20s) will still provide an error percentage of 1%. Uniform data performs almost as good as in a query without select predicate i.e. within 1% error. 
+  
+We see that skew does have more effect over queries with select predicates. The maximum error percentage is up to 3% from 1% for system sampling of 0.1 percentage. However, a system sampling of 1% or 5% will still provide an error percentage of 1% and runs in 10-20s. Uniform data performs almost as good as in a query without select predicate i.e. within 1% error. 
 
 ***
 ### Query 3
@@ -101,6 +102,8 @@ ORDER BY MONTH;
 ```
 ![][q3-skewed] ![][q3-skewed-time]
 ![][q3-uniform] ![][q3-uniform-time]
+  
+In case of group-by aggregate, we report the maximum error percentage across groups. The results here are not much different from that of query 2. The exact query seems to take around 10 mins. So, a system sampling of 1% or 5% seems to be a great compromise in the erorr-vs-performance trade-off spectrum. 
 *** 
 ### Query 4
 Now, compute a group-by aggregate on the join of two tables. Note that we join a sample of `LINEITEM` with the complete `SUPPLIER` table. 
@@ -117,6 +120,11 @@ ORDER BY NATION;
 ```
 ![][q4-skewed] ![][q4-skewed-time]
 ![][q4-uniform] ![][q4-uniform-time]
+  
+The key issue with sampling-based techniques is joins. We cannot join a sample of two tables especially because we cannot provide any guarantees about the hit-rate between tuples that match. There are more advanced forms of sampling that can handle this such as *universal sampling*, but postgres does not support them yet.
+  
+In this query, we join a sample of the `LINEITEM` table with the complete `SUPPLIER` table. Usually in star schemas, fact tables are joined with dimension tables and the dimension tables are smaller in size compared to fact tables. The observations here again are quite similar to above queries. 
+
 ***
 ### Query 5
 Query 5, computes an aggregate over join of two tables along with a select predicate:
@@ -130,6 +138,9 @@ WHERE L_ORDERKEY = O_ORDERKEY AND
 ```
 ![][q5-skewed] ![][q5-skewed-time]
 ![][q5-uniform] ![][q5-uniform-time]
+  
+Not much difference in observations here. One key issue to notice is that since there is a one-to-many map between `ORDER` and `LINEITEM`, we observe that a select predicate on `ORDER` table is not very much influenced by the skew and hence the error rates are better. Similarly, we observe that the runtime for this query is smaller than query 4, even though `ORDER` is much bigger than `SUPPLIER` : this is because the select predicate has been pushed down to the `ORDER` table before join and hence even for the exact query, the runtime is almost 0.5x. 
+
 ***
 ## Results
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
