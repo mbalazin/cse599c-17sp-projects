@@ -12,10 +12,12 @@ In this project, we focus on three main components. First, we consider the time 
 To maximize the performance of a provisioned cluster, it is important to understand the system architecture. As a user, you will spend most of the time sending commands to to the leader node through a standard JDBC/ODBC client. The leader node parses queries and sends execution plans to the workers. Workers are only selected to run a query if they contain a portion of the data being read. Leader nodes are also responsible for managing the catalog.
 
 <br>
+<center>
 <figure>
 <img src="figures/redshiftArchitecture.png" width="50%" height="50%">
 <figcaption>Figure 1: Redshift Architecture</figcaption>
 </figure>  
+</center>
 <br>
 
 Each compute node is partitioned by node slices which have access to a portion of the node's memory and disk space. The number of slices available on the node is dependent on the type of instance selected. For example, the cheapest instance available has two slices for each node. When the leader node issues a query execution plan, it will issue commands to each individual node slice, not per physical machine.
@@ -48,19 +50,23 @@ delimiter '|' region 'us-west-2';
 In Figure 2, we show the amount of time it takes to load the Lineorder relation for different number of node slices. As expected, there is a large performance difference between using 2 and 4 node slices (as we're doubling the amount of slices).
 
 <br>
+<center>
 <figure>
 <img src="figures/fig-ingest.png" width="40%" height="40%">
 <figcaption>Figure 2: Parallel ingest for the Lineorder Relation</figcaption>
 </figure>
+</center>
 <br>
 
 For the rest of the dimension tables, the ingest time is much shorter, where runtimes ranged in the span of seconds. Although the ingest times are fast, we still took a closer look at the query plan for loading these smaller dimension tables. It was interesting to see that although we specified that these tables should be broadcast, Redshift only assigns one node slice to read the file from S3 before broadcasting to all the workers. An alternative query plan would be to have each worker independently read the broadcast table directly from S3 instead of having one slice reading and shuffling/broadcasting it to all the other workers. In Figure 3, we show the scan portion of this query plan. Notice how only one slice (node slice 7) is reading the table. The rest of the query plan (not shown) details how this slice broadcasts the data to the rest of the slices.
 
 <br>
+<center>
 <figure>
 <img src="figures/fig-broadcast.png" width="30%" height="30%">
 <figcaption>Figure 3: Query plan for ingesting dimension table </figcaption>
 </figure>
+</center>
 <br>
 
 After ingest, Redshift will automatically try to find the best encoding for each column. If a user prefers to keep data in the RAW format, they can specify this in the COPY command during ingest. Redshift can support up to 8 different types of compression encodings. In Figure 4, we show an example of the automatic compression commands in the log (first 3 entries).
@@ -69,10 +75,12 @@ Encoding is important, as it affects the amount of data being transferred during
 
 
 <br>
+<center>
 <figure>
 <img src="figures/compression2.png" width="60%" height="60%">
 <figcaption>Figure 4: Automated compression commands</figcaption>
 </figure>
+</center>
 <br>
 
 
@@ -89,10 +97,12 @@ In Figure 5, we have two graphs showing the runtimes of the resize step. On the 
 On the right figure, we do not see the same trend. It was surprising to see that switching from 4-to-2 node slices turned out to be faster than some of the other scale-down migrations. In general, since we do not know how the transfer happens internally, it's not clear if there is a trend we should look out for or if these runtime variances are due to other factors of the system.  
 
 <br>
+<center>
 <figure>
 <img src="figures/fig-scaling-up.png" width="300"/> <img src="figures/fig-scaling-down.png" width="300"/> 
 <figcaption>Figure 5: Time to scale up or down</figcaption>
 </figure>
+</center>
 <br>
 
 ### Section 4. Query Processing
@@ -108,10 +118,12 @@ Recall, when we initially ingested data for Redshift, we specified the distribut
 In Figure 6, we show the runtimes for the queries on all variants for 10 node slices. Note, the y-axis is in log scale, as Redshift-Only queries are quite fast. We ran each query variant 4 times, omitted the first cold run, and plotted the average as well as the standard deviation for the rest of the runs.  There are a couple things we noticed. One, there is high variance in performance for Spectrum-Only queries. This might be due to either S3 or the Spectrum service, but this is not clear. Second, there are high latencies for the hybrid queries. 
 
 <br>
+<center>
 <figure>
 <img src="figures/fig-queries-bad-log.png" width="70%" height="70%">
 <figcaption>Figure 6: Query Runtimes for all Storage Variants (log-scale) </figcaption>
 </figure>
+</center>
 <br>
 
 We took a closer look at the query plans for the bad hybrid queries, starting with Q4. When looking at the query plan, we noticed that the query optimizer was not assigning costs as we would expect. In Figure 7, we see a portion of this query plan. It turns out that any table scanned from S3 is assigned a very high estimated row count : 10 billion rows (see the red shape on the figure). As a result, the optimizer sees Lineorder as the smallest table, and decides to broadcast this table before joining it with the others. These costs cause the queries to slowdown considerably.
@@ -119,19 +131,23 @@ We took a closer look at the query plans for the bad hybrid queries, starting wi
 We also tried to see whether there was a way for Spectrum to learn statistics about data in S3. Although S3 does not provide any information with respect to the number of rows or schema, it could be useful to retrieve the size of the relation in bytes. Perhaps this was not done because retrieving an object's metadata takes too long for the query optimizer. 
 
 <br>
+<center>
 <figure>
 <img src="figures/queryplan.png" width="70%" height="70%">
 <figcaption>Figure 7: Query Runtimes for all Storage Variants</figcaption>
 </figure>
+</center>
 <br>
 
 We took the hybrid queries and updated them to do the following: read Lineorder from Redshift and read the dimension tables from S3. In the Figure 9, we show the runtime for the new version of the Hybrid queries (v2). In general, the runtimes improve now that the Lineorder relation is no longer being broadcast to all the nodes. Although, in some cases, we sometimes still see a large variance, as seen in query 11. 
 
 <br>
+<center>
 <figure>
 <img src="figures/fig-queries-better.png" width="70%" height="70%">
 <figcaption>Figure 9: Query Runtimes for all Storage Variants (Hybrid Version 2)</figcaption>
 </figure>
+</center>
 <br>
 
 
