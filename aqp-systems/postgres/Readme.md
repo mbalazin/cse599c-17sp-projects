@@ -32,12 +32,35 @@ Further, the above estimators are said to be unbiased, which means that the expe
 On the other hand, similar estimates from a system sample of the relation does not come with any theoretical guarantees. In practice, system sampling is seen to yield quite good accuracy for slighly large sample sizes. However, skewed distributions (both in value and organization on disk) can increase estimation errors. 
 
 ## Experiments
-*objectives*
+In the rest of the report, we aim to compare the features that postgres supports quantitatively and analyze the scope of approximate query processing that can be performed using just these standard features available to any user. 
 
 ### Experimental Setup
-*aws instance types, etc.* 
+We perform all our experiments on Amazon AWS instances for purposes of interpretability and future extensibility. Specifically, we use a single node of `ic3.large` instance type. Following is a brief summary of the important configuration parameters of interest:
+
+| Configuration | Value  | 
+|---------------|:------:|
+| vCPU          | 2      |
+| Memory        | 15.25  |
+| Storage       | 500GB SSD|
+
+Further, we use the TPC-H benchmark to generate data. The data generator that is provided by TPCC generates a uniformly distributed data using a random generator. Aggregate estimates from samples drawn from a uniformly distributed data generally have low error rates. 
+  
+In cases where the population is skewed, the error rates can potentially shoot up. We perform all our experiments both on uniform and skewed data. We used the skewed TPC-H data generator made available [here](https://www.microsoft.com/en-us/download/details.aspx?id=52430) by Microsoft Research. The skew data generator uses a zipfian distribution with a user-specified value of theta. Higher the value of theta, more the skew in data. We use a skew parameter (theta) of 1. 
+  
+We generated 10GB and 100GB of uniform and skewed TPC-H relations and ingested them into postgres 9.5 on a single node AWS instance. 
+
+| Data Size             | Ingestion Time  | 
+|-----------------------|:---------------:|
+| Skewed data (10GB)    | 9m 25s          |
+| Uniform data (10GB)   | 8m 23s          |
+| Skewed data (100GB)   | 99m 22s         |
+| Uniform data (100GB)  | 100m 54s        |
+
+All experiments below are performed 5 times and the results reported are mean, along with the standard deviations in our observations.
 
 ### Query 1
+We start with a very simple aggregate query on the largest table `LINEITEM` in the TPC-H benchmark. We compute all the three aggregates `count`, `sum` and `average` that are supported by Bernoulli sampling. We present the error percentage in the estimate and the corresponding runtimes for both uniform and skewed data in the graphs below.
+
 ```sql 
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_COST, 
@@ -48,6 +71,7 @@ FROM LINEITEM;
 ![][q1-uniform] ![][q1-uniform-time]
 ***
 ### Query 2
+Now, we add a select predicate to our aggregate query. 
 ```sql
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_COST, 
@@ -59,6 +83,7 @@ WHERE DATE_PART('month', L_RECEIPTDATE) = 8;
 ![][q2-uniform] ![][q2-uniform-time]
 ***
 ### Query 3
+In query 3, we compute a group-by aggregate query on the `LINEITEM` 
 ```sql
 SELECT DATE_PART('month', L_RECEIPTDATE) AS MONTH, 
        COUNT(*) AS NUM_ITEMS, 
@@ -72,6 +97,8 @@ ORDER BY MONTH;
 ![][q3-uniform] ![][q3-uniform-time]
 *** 
 ### Query 4
+Now, compute a group-by aggregate on the join of two tables. Note that we join a sample of `LINEITEM` with the complete `SUPPLIER` table. 
+
 ```sql
 SELECT S_NATIONKEY AS NATION, 
        COUNT(*) AS NUM_ITEMS, 
@@ -86,6 +113,7 @@ ORDER BY NATION;
 ![][q4-uniform] ![][q4-uniform-time]
 ***
 ### Query 5
+Query 5, computes an aggregate over join of two tables along with a select predicate:
 ```sql
 SELECT COUNT(*) AS NUM_ITEMS, 
        SUM(L_QUANTITY) AS TOT_QTY, 
