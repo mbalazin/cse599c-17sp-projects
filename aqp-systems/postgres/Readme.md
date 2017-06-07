@@ -1,7 +1,7 @@
 # How well can POSTGRES handle approximate queries?
 [POSTGRES](https://www.postgresql.org/) is an open source database that has been developed and maintained both by industry and academia for the last two decades. From release 9.5, postgres started supporting sampling in order to enable approximate query processing. There is a huge body of work in the database community relating to estimation of query results from a sample of the database. 
 
-## Sampling Support
+## Support for Approxiate Query Processing
 Postgres supports two simple sampling techniques, namely **bernoulli** and **system** sampling. In Bernoulli sampling, the complete relation is scanned and individual tuples are randomly chosen (imagine a coin flip). The key bottleneck here is that the even if the query runs on a sample of data, we pay the cost of scanning the whole relation once. In some cases, this in itself could be a heavy operation.  
   
 To overcome this, postgres supports an additional form of sampling called system sampling. System sampling operates at the granularity of pages instead of tuples. A random number is generated for each physical page in a relation. Based on this number and the sampling percentage specified it is either included or excluded from the sample. If a page is included, all tuples that occur in that physical page is included in the sample.  
