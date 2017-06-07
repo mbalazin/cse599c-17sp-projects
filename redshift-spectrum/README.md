@@ -19,6 +19,7 @@ To maximize the performance of a provisioned cluster, it is important to underst
 </figure>  
 </center>
 <br>
+<br>
 
 Each compute node is partitioned by node slices which have access to a portion of the node's memory and disk space. The number of slices available on the node is dependent on the type of instance selected. For example, the cheapest instance available has two slices for each node. When the leader node issues a query execution plan, it will issue commands to each individual node slice, not per physical machine.
 
@@ -57,6 +58,7 @@ In Figure 2, we show the amount of time it takes to load the Lineorder relation 
 </figure>
 </center>
 <br>
+<br>
 
 For the rest of the dimension tables, the ingest time is much shorter, where runtimes ranged in the span of seconds. Although the ingest times are fast, we still took a closer look at the query plan for loading these smaller dimension tables. It was interesting to see that although we specified that these tables should be broadcast, Redshift only assigns one node slice to read the file from S3 before broadcasting to all the workers. An alternative query plan would be to have each worker independently read the broadcast table directly from S3 instead of having one slice reading and shuffling/broadcasting it to all the other workers. In Figure 3, we show the scan portion of this query plan. Notice how only one slice (node slice 7) is reading the table. The rest of the query plan (not shown) details how this slice broadcasts the data to the rest of the slices.
 
@@ -67,6 +69,7 @@ For the rest of the dimension tables, the ingest time is much shorter, where run
 <figcaption>Figure 3: Query plan for ingesting dimension table </figcaption>
 </figure>
 </center>
+<br>
 <br>
 
 After ingest, Redshift will automatically try to find the best encoding for each column. If a user prefers to keep data in the RAW format, they can specify this in the COPY command during ingest. Redshift can support up to 8 different types of compression encodings. In Figure 4, we show an example of the automatic compression commands in the log (first 3 entries).
@@ -82,6 +85,7 @@ Encoding is important, as it affects the amount of data being transferred during
 </figure>
 </center>
 <br>
+<br>
 
 
 ## Section 3. Scaling up and down
@@ -92,7 +96,7 @@ When deciding to resize, which only requires a couple clicks on the dashboard, A
 
 When a user initially sends a resize request, it takes approximately 10 minutes to create a new cluster. This seems long, as starting up a new cluster from scratch only takes about half the time. After the new cluster is provisioned, the data transfer begins. After ~20 minutes (based on our dataset), the cluster finishes resizing.     
 
-In Figure 5, we have two graphs showing the runtimes of the resize step. On the left graph, we display the time it takes to scale up by one node at a time. On the x-axis, we show the number of slices we scale from and the number of slices we scale to. For example, for the first bar, we started from a 2-node-slice cluster and scaled up to a 4-node-slice cluster. Each time we switched to a different target cluster, we kept migrating the same amount of data. From this graph, it does seem like having more node slices as readers and writers (see 6-to-8 and 8-to-10) is slightly faster than 2-to-4 and 4-to-6. Note, we did try to look at the documentation to see if there was any more information available on how this data transfer actually happens (for example, is there a coordinator bottleneck?). Currently, there does not seem to be any documentation that details this step. In addition, we cannot view the cluster resource utilization during this step. 
+In Figure 5, we have two graphs showing the runtimes of the resize step. On the first graph, we display the time it takes to scale up by one node at a time. On the x-axis, we show the number of slices we scale from and the number of slices we scale to. For example, for the first bar, we started from a 2-node-slice cluster and scaled up to a 4-node-slice cluster. Each time we switched to a different target cluster, we kept migrating the same amount of data. From this graph, it does seem like having more node slices as readers and writers (see 6-to-8 and 8-to-10) is slightly faster than 2-to-4 and 4-to-6. Note, we did try to look at the documentation to see if there was any more information available on how this data transfer actually happens (for example, is there a coordinator bottleneck?). Currently, there does not seem to be any documentation that details this step. In addition, we cannot view the cluster resource utilization during this step. 
 
 On the right figure, we do not see the same trend. It was surprising to see that switching from 4-to-2 node slices turned out to be faster than some of the other scale-down migrations. In general, since we do not know how the transfer happens internally, it's not clear if there is a trend we should look out for or if these runtime variances are due to other factors of the system.  
 
@@ -103,6 +107,7 @@ On the right figure, we do not see the same trend. It was surprising to see that
 <figcaption>Figure 5: Time to scale up or down</figcaption>
 </figure>
 </center>
+<br>
 <br>
 
 ### Section 4. Query Processing
@@ -125,6 +130,7 @@ In Figure 6, we show the runtimes for the queries on all variants for 10 node sl
 </figure>
 </center>
 <br>
+<br>
 
 We took a closer look at the query plans for the bad hybrid queries, starting with Q4. When looking at the query plan, we noticed that the query optimizer was not assigning costs as we would expect. In Figure 7, we see a portion of this query plan. It turns out that any table scanned from S3 is assigned a very high estimated row count : 10 billion rows (see the red shape on the figure). As a result, the optimizer sees Lineorder as the smallest table, and decides to broadcast this table before joining it with the others. These costs cause the queries to slowdown considerably.
 
@@ -138,6 +144,7 @@ We also tried to see whether there was a way for Spectrum to learn statistics ab
 </figure>
 </center>
 <br>
+<br>
 
 We took the hybrid queries and updated them to do the following: read Lineorder from Redshift and read the dimension tables from S3. In the Figure 9, we show the runtime for the new version of the Hybrid queries (v2). In general, the runtimes improve now that the Lineorder relation is no longer being broadcast to all the nodes. Although, in some cases, we sometimes still see a large variance, as seen in query 11. 
 
@@ -148,6 +155,7 @@ We took the hybrid queries and updated them to do the following: read Lineorder 
 <figcaption>Figure 9: Query Runtimes for all Storage Variants (Hybrid Version 2)</figcaption>
 </figure>
 </center>
+<br>
 <br>
 
 
