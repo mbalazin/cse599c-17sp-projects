@@ -142,6 +142,11 @@ WHERE L_ORDERKEY = O_ORDERKEY AND
 Not much difference in observations here. One key issue to notice is that since there is a one-to-many map between `ORDER` and `LINEITEM`, we observe that a select predicate on `ORDER` table is not very much influenced by the skew and hence the error rates are better. Similarly, we observe that the runtime for this query is smaller than query 4, even though `ORDER` is much bigger than `SUPPLIER` : this is because the select predicate has been pushed down to the `ORDER` table before join and hence even for the exact query, the runtime is almost 0.5x. 
 
 ***
+## Conclusion
+On the whole, postgres is a very good choice for simple aggregates on single large tables. In case of selection conditions or group-by aggregates, it is better to increase the sampling percentage in order to contain the error percentage. System sampling seems to provide good error percentages (< 1%) with higher sampling percentages (like 5% or 10%) in most queries. Bernoulli sampling works is able to achieve it with as small as sample as 1% but incurs the additional overhead of complete relation scan. 
+  
+Support for queries on joins of tables is poor. Implementing a more advanced sampling technique such as universal sampling is a good step in that direction. 
+
 ## Results
 Following are the links to Google Sheets that contain accuracy and runtime measurements for the above experiments. Each document contains multiple sheets, one for each of the above queries.
 
