@@ -69,17 +69,17 @@ Apache Hive was easy to set up as well, once I figured out how to use the EMR. T
 
 #### Runtimes-
 
-![Graphs][load times.png]
+![Graphs](load times.png)
 
-![Graphs][aggregate functions.png]
+![Graphs](aggregate functions.png)
 
-![Graphs][Aggregate functions+join.png]
+![Graphs](Aggregate functions+join.png)
 
-![Graphs][Aggregate functions+join+subqueries.png]
+![Graphs](Aggregate functions+join+subqueries.png)
 
-![Graphs][Aggregate functions+where clause.png]
+![Graphs](Aggregate functions+where clause.png)
 
-![Graphs][Case statement+join.png]
+![Graphs](Case statement+join.png)
 
 
 As we can see, the load times for Redshift are comparably high, with Hive shaving a close second. This can be attributed to the compression Redshift performs. Spark’s load time is the shortest. 
