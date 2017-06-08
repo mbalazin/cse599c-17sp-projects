@@ -121,7 +121,7 @@ ORDER BY NATION;
   
 The key issue with sampling-based techniques is joins. We cannot join a sample of two tables especially because we cannot provide any guarantees about the hit-rate between tuples that match. There are more advanced forms of sampling that can handle this such as *universal sampling*, but postgres does not support them yet.
   
-In this query, we join a sample of the `LINEITEM` table with the complete `SUPPLIER` table. Usually in star schemas, fact tables are joined with dimension tables and the dimension tables are smaller in size compared to fact tables. The observations here again are quite similar to above queries. 
+In this query, we join a sample of the `LINEITEM` table with the complete `SUPPLIER` table. Usually in star schemas, fact tables are joined with dimension tables and the dimension tables are smaller in size compared to fact tables. The observations here, again, are quite similar to above queries. 
 
 ### Query 5
 Query 5, computes an aggregate over join of two tables along with a select predicate:
@@ -136,10 +136,10 @@ WHERE L_ORDERKEY = O_ORDERKEY AND
 ![][q5-skewed] ![][q5-skewed-time]
 ![][q5-uniform] ![][q5-uniform-time]
   
-Not much difference in observations here. One key issue to notice is that since there is a one-to-many map between `ORDER` and `LINEITEM`, we observe that a select predicate on `ORDER` table is not very much influenced by the skew and hence the error rates are better. Similarly, we observe that the runtime for this query is smaller than query 4, even though `ORDER` is much bigger than `SUPPLIER` : this is because the select predicate has been pushed down to the `ORDER` table before join and hence even for the exact query, the runtime is almost 0.5x. 
+Not much difference in observations here. One key issue to notice is that since there is a one-to-many map between `ORDER` and `LINEITEM`, we observe that a select predicate on `ORDER` table is not very much influenced by the skew and hence the error rates are better. Similarly, we observe that the runtime for this query is smaller than query 4, even though `ORDER` is much bigger than `SUPPLIER` : this is because the select predicate has been pushed down to the `ORDER` table before the join and hence even for the exact query, the runtime is almost 0.5x. 
 
 ## Conclusion
-On the whole, postgres is a very good choice for simple aggregates on single large tables. In case of selection conditions or group-by aggregates, it is better to increase the sampling percentage in order to contain the error percentage. System sampling seems to provide good error percentages (< 1%) with higher sampling percentages (like 5% or 10%) in most queries. Bernoulli sampling works is able to achieve it with as small as sample as 1% but incurs the additional overhead of complete relation scan. 
+On the whole, postgres is a very good choice for simple aggregates on single large tables. In case of selection conditions or group-by aggregates, it is better to increase the sampling percentage in order to contain the error percentage. System sampling seems to provide good error percentages (< 1%) with higher sampling percentages (like 5% or 10%) in most queries. Bernoulli sampling is able to achieve such low error percentages with as small a sample as 1% but incurs the additional overhead of complete relation scan. 
   
 Support for queries on joins of tables is poor. Implementing a more advanced sampling technique such as universal sampling is a good step in that direction. 
 
