@@ -69,17 +69,17 @@ Apache Hive was easy to set up as well, once I figured out how to use the EMR. T
 
 #### Runtimes-
 
-![Graphs](load times.png)
+![Graphs](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/Hive-Redshift-Spark%20benchmark/load%20times.png)
 
-![Graphs](aggregate functions.png)
+![Graphs](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/Hive-Redshift-Spark%20benchmark/aggregate%20functions.png)
 
-![Graphs](Aggregate functions+join.png)
+![Graphs](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/Hive-Redshift-Spark%20benchmark/Aggregate%20functions%2Bjoin.png)
 
-![Graphs](Aggregate functions+join+subqueries.png)
+![Graphs](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/Hive-Redshift-Spark%20benchmark/Aggregate%20functions%2Bjoin%2Bsubqueries.png)
 
-![Graphs](Aggregate functions+where clause.png)
+![Graphs](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/Hive-Redshift-Spark%20benchmark/aggregate%20functions%2Bwhere%20clause.png)
 
-![Graphs](Case statement+join.png)
+![Graphs](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/Hive-Redshift-Spark%20benchmark/Case%20statement%2Bjoin.png)
 
 
 As we can see, the load times for Redshift are comparably high, with Hive shaving a close second. This can be attributed to the compression Redshift performs. Spark’s load time is the shortest. 
