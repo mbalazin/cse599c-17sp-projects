@@ -118,15 +118,15 @@ _(a) 10GB Dataset_
 
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_100_chart.png "Query Runtimes on 100GB Dataset")
 
-_(a) 100GB Dataset_
+_(b) 100GB Dataset_
 
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_300_chart.png "Query Runtimes on 300GB Dataset")
 
-_(a) 300GB Dataset_
+_(c) 300GB Dataset_
 
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_100_10_chart.png "Query Runtimes on 100GB Dataset -- 10 Node Spark vs 3 Node Vertica")
 
-_(a) 10 Nodes Spark deployment vs 3 Nodes Vertica deployment on a 100GB Dataset_
+_(d) 10 Nodes Spark deployment vs 3 Nodes Vertica deployment on a 100GB Dataset_
 
 **Figure 2.** The figure presents the time taken (in seconds) for each of the three systems to execute a set of 17 TPC-H
 queries.
