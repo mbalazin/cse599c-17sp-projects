@@ -98,6 +98,7 @@ the data source files (therefore zero ingestion cost), to have a more meaningful
 data into persistent tables by loading the data into the HiveMetastore.
 
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/ingestion_chart.png "Data Ingestion Performance Comparison")
+
 **Figure 1.** The figure presents the time taken (in seconds) for each of the three systems to ingest three TPCH 
 datasets.
 
@@ -112,9 +113,21 @@ In this section, we evaluate the time it takes each system to answer a set of st
 assuming the data has already been loaded into the system from S3.
 
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_10_chart.png "Query Runtimes on 10GB Dataset")
+
+_(a) 10GB Dataset_
+
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_100_chart.png "Query Runtimes on 100GB Dataset")
+
+_(a) 100GB Dataset_
+
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_300_chart.png "Query Runtimes on 300GB Dataset")
+
+_(a) 300GB Dataset_
+
 ![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/query_100_10_chart.png "Query Runtimes on 100GB Dataset -- 10 Node Spark vs 3 Node Vertica")
+
+_(a) 10 Nodes Spark deployment vs 3 Nodes Vertica deployment on a 100GB Dataset_
+
 **Figure 2.** The figure presents the time taken (in seconds) for each of the three systems to execute a set of 17 TPC-H
 queries.
 
@@ -137,10 +150,9 @@ and the rest of them considered themselves as novice users. Since only five user
 to run significance tests on the usability scores. We also request readers to take the findings in the subsection with 
 a grain of salt.
 
-![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/setting_cluster.png "Setting up a cluster")
-![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/loading_data.png "Loading Data")
-![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/writing_queries.png "Writing Queries")
-![alt text](https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/debug_performance.png "Debugging Query Performance")
+<img src="https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/setting_cluster.png" title="Setting up a cluster" width="49%" style="float: left" /> <img src="https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/loading_data.png" title="Loading Data" width="49%" style="float: left" />
+<img src="https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/writing_queries.png" title="Writing Queries" width="49%" style="float: left" /> <img src="https://github.com/mbalazin/cse599c-17sp-projects/blob/master/spark-myria-vertica/debug_performance.png" title="Debugging Query Performance" width="49%" style="float: left" />
+
 **Figure 3.** The figure presents a usability evaluation of Vertica, Spark and Myria on NASA TLX usability parameters 
 on four system dimensions: A) Setting up the cluster, B) Loading data, C) Writing queries, and D) Query performance 
 debugging. 
